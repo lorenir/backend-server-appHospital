@@ -8,13 +8,17 @@ var app = express();
 //Importor rutas
 var appRoutes = require('./routes/app');
 var usuarioRoutes = require('./routes/usuario');
+var loginRoutes = require('./routes/login');
 
 
 //Conexión a la BD
 
-mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', { useCreateIndex: true, useNewUrlParser: true }, (err, res) => {
-    if (err) throw err;
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useNewUrlParser', true);
 
+mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res) => {
+    if (err) throw err;
     //si no hay error
     console.log('MongoDB: \x1b[32m%s\x1b[0m', 'online');
 
@@ -26,6 +30,7 @@ app.use(express.json()); // parse application/json
 
 // Rutas
 app.use('/usuario', usuarioRoutes);
+app.use('/login', loginRoutes);
 app.use('/', appRoutes);
 
 
