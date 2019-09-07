@@ -41,7 +41,7 @@ app.get('/', (req, res, next) => {
                     usuarios: usuarios,
                     total: conteo
                 });
-            })
+            });
 
 
         });
@@ -103,7 +103,7 @@ app.put('/:id', auth, (req, res) => {
 // Crear usuarios
 //==========================================
 
-app.post('/', auth, (req, res, next) => {
+app.post('/', (req, res, next) => {
 
     console.log(req.usuario);
     let usuario = new Usuario(req.body);

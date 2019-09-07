@@ -1,5 +1,7 @@
 //Requires
 var express = require('express');
+var cors = require('cors');
+
 var mongoose = require('mongoose');
 
 // Inicializando variables
@@ -32,6 +34,16 @@ mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res) =
 });
 
 //middlewares
+
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
+//     next();
+// });
+app.use(cors());
+
+
 app.use(express.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded
 app.use(express.json()); // parse application/json
 
