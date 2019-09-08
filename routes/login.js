@@ -66,7 +66,7 @@ app.post('/google', async(req, res) => {
 
         if (usuarioBD) {
 
-            if (usuarioBD.google === flase) {
+            if (usuarioBD.google === false) {
 
                 return res.status(400).json({
                     ok: false,
