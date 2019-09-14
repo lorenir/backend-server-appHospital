@@ -87,10 +87,13 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
                 });
             }
 
-            var pathviejo = './uploads/usuarios/' + usuario.img;
-            // si existe la elimina
-            if (fs.existsSync(pathviejo)) {
-                fs.unlinkSync(pathviejo);
+            if (usuario.img && usuario.img.length > 0) {
+
+                var pathviejo = './uploads/usuarios/' + usuario.img;
+                // si existe la elimina
+                if (fs.existsSync(pathviejo)) {
+                    fs.unlinkSync(pathviejo);
+                }
             }
 
             usuario.img = nombreArchivo;
@@ -119,10 +122,13 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
                 });
             }
 
-            var pathviejo = './uploads/medicos/' + medico.img;
-            // si existe la elimina
-            if (fs.existsSync(pathviejo)) {
-                fs.unlinkSync(pathviejo);
+            if (medico.img && medico.img.length > 0) {
+
+                var pathviejo = './uploads/medicos/' + medico.img;
+                // si existe la elimina
+                if (fs.existsSync(pathviejo)) {
+                    fs.unlinkSync(pathviejo);
+                }
             }
 
             medico.img = nombreArchivo;
@@ -140,6 +146,7 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
     }
 
     if (tipo === 'hospitales') {
+        console.log('TIPO HOSPTAL');
 
         Hospital.findById(id, (err, hospital) => {
 
@@ -151,11 +158,18 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
                 });
             }
 
-            var pathviejo = './uploads/hospitales/' + hospital.img;
-            // si existe la elimina
-            if (fs.existsSync(pathviejo)) {
-                fs.unlinkSync(pathviejo);
+            console.log(' HOSPTA FOUNDL');
+
+            if (hospital.img && hospital.img.length > 0) {
+                var pathviejo = './uploads/hospitales/' + hospital.img;
+
+                console.log('PAHT VIEJO: ' + pathviejo);
+                // si existe la elimina
+                if (fs.existsSync(pathviejo)) {
+                    fs.unlinkSync(pathviejo);
+                }
             }
+
 
             hospital.img = nombreArchivo;
             hospital.save((err, hospitalActualizado) => {
