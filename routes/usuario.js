@@ -4,6 +4,8 @@ var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 
 var auth = require('../middlewares/autenticacion').verificaToken;
+var authAdminRole = require('../middlewares/autenticacion').verificaAdminRole;
+var authUpdatePerfiRole = require('../middlewares/autenticacion').verificaUpdatePerfilRole;
 
 
 //Inicializar variables
@@ -11,7 +13,7 @@ var app = express();
 
 
 //Rutas
-var Usuario = require('../models/usuario')
+var Usuario = require('../models/usuario');
 
 //==========================================
 // Obtener todos los usuarios
@@ -52,7 +54,7 @@ app.get('/', (req, res, next) => {
 // Actualizar usuarios
 //==========================================
 
-app.put('/:id', auth, (req, res) => {
+app.put('/:id', [auth, authUpdatePerfiRole], (req, res) => {
 
     var id = req.params.id;
     var body = req.body;
@@ -134,7 +136,7 @@ app.post('/', (req, res, next) => {
 // Eliminar usuarios por Id
 //==========================================
 
-app.delete('/:id', auth, (req, res) => {
+app.delete('/:id', [auth, authAdminRole], (req, res) => {
 
     var id = req.params.id;
 
@@ -161,8 +163,8 @@ app.delete('/:id', auth, (req, res) => {
             usuario: usuarioBorrado
         });
 
-    })
-})
+    });
+});
 
 
 module.exports = app;
